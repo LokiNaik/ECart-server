@@ -4,6 +4,8 @@ const connectToMongoDB = require('../db')
 const objId = require('mongodb').ObjectId
 const { json } = require('body-parser')
 const e = require('cors')
+const bcrypt = require('bcryptjs')  
+const saltRounds = 10
 
 exports.getApi = async (req, res) => {
     const client = await connectToMongoDB()
@@ -36,8 +38,8 @@ exports.getUserByEmailPassword = async (req, res) => {
     try { 
         const user = await db.collection('users').findOne({ email })
         const pass = user.password
-
-        if (pass === password){
+        const isPasswordMatch = await bcrypt.compare(password, pass)
+        if (isPasswordMatch){
             res.status(200).json({ message: 'user valid' })
         } else {
             res.status(200).json({ message: 'wrong password' })
