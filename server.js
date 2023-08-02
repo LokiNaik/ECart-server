@@ -1,35 +1,35 @@
 const bodyParser = require('body-parser')
 const express = require('express')
-const mongo = require('mongodb')
-const passport = require('passport')
-// const session = require('express-session')
 
 const app = express()
 const cors = require('cors')
 
 
+const getStudents = require('./routes/student/getAPI')
+const deleteUserRoute = require('./routes/student/delete')
+const userAdd = require('./routes/student/addroute')
+const updateStudent = require('./routes/student/updateUser')
 
-const getStudents = require('./routes/getAPI')
-const deleteUserRoute = require('./routes/delete')
-const userAdd = require('./routes/addroute')
-const userUpdate = require('./routes/updateUser')
-const auth = require('./routes/auth')
+
+const addNewUser = require('./routes/user/addUserRoute')
+const getUser = require('./routes/user/getUser')
+
 
 
 app.use(bodyParser.json())
 app.use(cors())
-// app.use(express.urlencoded({extended: true}))
-// app.use(session({secret:'loki1234', resave:false, saveUninitialized: false}))
-// app.use(passport.initialize())
-// app.use(passport.session())
 
 
-// app.use('/api', auth)
-app.use('/api' ,getStudents)
-// app.use('/api' ,getStudents)
+app.use('/api', getUser)
+app.use('/api', addNewUser)
+
+app.use('/api', getStudents)
 app.use('/api', userAdd)
 app.use('/api', deleteUserRoute)
-app.use('/api' ,userUpdate)
+app.use('/api', updateStudent)
+
+
+
 
 
 

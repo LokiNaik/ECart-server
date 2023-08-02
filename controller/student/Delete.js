@@ -1,4 +1,4 @@
-const  connectToMongoDB = require('../db')
+const  connectToMongoDB = require('../../db')
 const mongo = require('mongodb')
 
 exports.deleteUser = async ( req, res ) => {
